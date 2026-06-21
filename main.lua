@@ -26,6 +26,8 @@ function love.update(dt)
     local dificult3 = 1.8
     local dificult4 = 2
     local dificult5 = 2.5
+    local dificult6 = 2.8
+    local dificult7 = 3
 
     if Score >= 10 then
         Time = Time - dt * dificult1
@@ -52,6 +54,16 @@ function love.update(dt)
     end
 
 
+    if Score >= 60 then
+        Time = Time - dt * dificult6
+    end
+
+
+    if Score >= 70 then
+        Time = Time - dt * dificult7
+    end
+
+    
     if Time > 0 then
         Time = Time - dt
     end
