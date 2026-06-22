@@ -38,20 +38,17 @@ function love.load()
 end
 
 function love.update(dt)
-    if proxDificulti >= 10 then
+    if proxDificulti >= 10 then --cada 10 clicadas no gatinho sobe a dificuldade, incluindo o botao direito.
         proxDificulti = 0
 
         if dificulAtual < #dificulties then
             dificulAtual = dificulAtual + 1
         end
     end
-    
 
-    
     if Time > 0 then
         Time = Time - dt * dificulties[dificulAtual]
     end
-
 
     if Time < 0 then
         Time = 0
