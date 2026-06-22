@@ -38,10 +38,6 @@ function love.load()
 end
 
 function love.update(dt)
-
-
-
-    
     if proxDificulti >= 10 then
         proxDificulti = 0
 
