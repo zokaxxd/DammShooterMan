@@ -17,55 +17,43 @@ function love.load()
 
     love.mouse.setVisible(false)
 
+    dificulAtual = 1
+    proxDificulti = 0
+
+    dificulties = {
+        1.2,
+        1.5,
+        1.8,
+        2,
+        2.5,
+        2.8,
+        3,
+        3.5, 
+        4,
+        4.5,
+        5, 
+        5.5
+    }
 
 end
 
 function love.update(dt)
-    local dificult1 = 1.2
-    local dificult2 = 1.5
-    local dificult3 = 1.8
-    local dificult4 = 2
-    local dificult5 = 2.5
-    local dificult6 = 2.8
-    local dificult7 = 3
 
-    if Score >= 10 then
-        Time = Time - dt * dificult1
+
+
+    
+    if proxDificulti >= 10 then
+        proxDificulti = 0
+
+        if dificulAtual < #dificulties then
+            dificulAtual = dificulAtual + 1
+        end
     end
-
-
-    if Score >= 20 then
-        Time = Time - dt * dificult2
-    end
-
-
-    if Score >= 30 then
-        Time = Time - dt * dificult3
-    end
-
-
-    if Score >= 40 then
-        Time = Time - dt * dificult4
-    end
-
-
-    if Score >= 50 then
-        Time = Time - dt * dificult5
-    end
-
-
-    if Score >= 60 then
-        Time = Time - dt * dificult6
-    end
-
-
-    if Score >= 70 then
-        Time = Time - dt * dificult7
-    end
+    
 
     
     if Time > 0 then
-        Time = Time - dt
+        Time = Time - dt * dificulties[dificulAtual]
     end
 
 
@@ -81,6 +69,7 @@ function love.draw()
 
     love.graphics.print("Score: " .. Score, 10, 10)
     love.graphics.print("Time: " .. math.ceil(Time), 10, 50)
+    love.graphics.print("Dificuldade: "..dificulAtual, 10, 90)
 
     if GameState == 2 then
         love.graphics.draw(Sprites.alvo, Target.x-84, Target.y-69)
@@ -99,6 +88,7 @@ function love.mousepressed(x, y, button)
         local mouseTo = DistanceBewteen(x, y, Target.x, Target.y)
         if mouseTo < Target.radius then
             Score = Score + 1
+            proxDificulti = proxDificulti + 1
             Target.x = math.random(Target.radius, love.graphics.getWidth() - Target.radius)
             Target.y = math.random(Target.radius, love.graphics.getHeight() - Target.radius)
             Time = 10
@@ -112,6 +102,8 @@ function love.mousepressed(x, y, button)
         GameState = 2
         Time = 10
         Score = 0
+        dificulAtual = 1
+        proxDificulti = 0
     end
 
     if button == 2 and GameState == 2 then
@@ -120,6 +112,7 @@ function love.mousepressed(x, y, button)
             Target.x = math.random(Target.radius, love.graphics.getWidth() - Target.radius)
             Target.y = math.random(Target.radius, love.graphics.getHeight() - Target.radius)
             Score = Score + 2
+            proxDificulti = proxDificulti + 1
             Time = Time - 1
         end
     end
